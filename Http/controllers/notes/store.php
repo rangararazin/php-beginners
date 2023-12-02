@@ -18,9 +18,13 @@ if (! empty($errors)) {
     ]);
 }
 
+$user = $db->query('SELECT * FROM users WHERE email = :email', [ 'email' => $_SESSION['user']['email'] ])->find();
+
+$currentUserId = $user['id'];
+
 $db->query('INSERT INTO notes(body, user_id) VALUES(:body, :user_id)', [
     'body' => $_POST['body'],
-    'user_id' => 1
+    'user_id' => $currentUserId
 ]);
 
 header('location: /notes');

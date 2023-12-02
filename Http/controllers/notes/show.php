@@ -5,11 +5,18 @@ use Core\Database;
 
 $db = App::resolve(Database::class);
 
-$currentUserId = 1;
+
+$user = $db->query('SELECT * FROM users WHERE email = :email', [ 'email' => $_SESSION['user']['email'] ])->find();
+
+$currentUserId = $user['id'];
+
+
 
 $note = $db->query('select * from notes where id = :id', [
     'id' => $_GET['id']
 ])->findOrFail();
+
+//dd($note);
 
 authorize($note['user_id'] === $currentUserId);
 
