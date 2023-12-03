@@ -7,6 +7,7 @@ use Core\Validator;
 class LoginForm
 {
     protected $errors = [];
+
     public function validate($email, $password)
     {
 
@@ -21,7 +22,13 @@ class LoginForm
         return empty($this->errors);
     }
 
-    public function errors(){
+    public function errors()
+    {
         return $this->errors;
+    }
+
+    public function error($field, $message)
+    {
+        $this->errors[$field] = $message;
     }
 }
